@@ -53,9 +53,6 @@ io.on('connection', socket => {
 
         console.log(userList)
 
-        console.log("ye")
-
-
 
     })
 
