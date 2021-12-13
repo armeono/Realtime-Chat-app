@@ -1,0 +1,6 @@
+<input type="text" placeholder="enter your id" #user>
+<input type="text" id="room-input" [(ngModel)]="room"  [ngModelOptions]="{standalone: true}" placeholder="room id" #roomid> 
+
+<a (click)="setUpChat(user.value, roomid.value)">Enter</a>
+
+

@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 55vh;
+    width: 90%;
+    max-width: 1200px;
+    font-family: 'Roboto', sans-serif;
+}
