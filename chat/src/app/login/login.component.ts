@@ -50,17 +50,13 @@ export class LoginComponent implements OnInit {
 
     socket.emit('setup', ID, room)
 
-    this.userList.push({
-      id: ID
-    })
-
     socket.on('users', (userList: any) => { 
+
       this.user.addUser(userList);
     })
 
-    console.log(this.userList)
 
-  
+
 
 
     this.router.navigate(['home']);
@@ -71,3 +67,4 @@ export class LoginComponent implements OnInit {
   
 
 }
+

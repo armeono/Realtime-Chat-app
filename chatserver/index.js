@@ -1,3 +1,5 @@
+const { index } = require('cheerio/lib/api/traversing')
+
 const io = require('socket.io')(3000, {
     cors: {
         origin: ['http://localhost:4200']
@@ -5,6 +7,8 @@ const io = require('socket.io')(3000, {
 })
 
 let userList = []
+
+
 
 io.on('connection', socket => {
 
@@ -14,7 +18,6 @@ io.on('connection', socket => {
 
     socket.on('send-message', (message, room) => {
 
-        console.log(message)
 
         if (room === '') {
 
@@ -22,7 +25,6 @@ io.on('connection', socket => {
 
         } else {
 
-            console.log(room)
 
             socket.to(room).emit('receive-message', message, currentID)
 
@@ -33,6 +35,8 @@ io.on('connection', socket => {
 
 
     socket.on('setup', (id, room) => {
+        
+        
 
         if (id !== "") {
             currentID = id
@@ -46,25 +50,36 @@ io.on('connection', socket => {
 
 
         userList.push({
-            id: currentID
+            id: currentID,
+            code: socket.id
         })
 
-        socket.emit('users', userList)
+        io.emit('users', userList)
 
         console.log(userList)
 
 
+
+
+    })
+
+    socket.on('disconnect', () => {
+
+        console.log(`User disconnected ${socket.id}`)
+
+        io.emit('disconnected', socket.id)
+    
+        userList = userList.filter(user => user.code != socket.id)
+    
+        
+    
+    
     })
 
 
 
 
-
-
-
-
-
-
-
 })
+
+
 

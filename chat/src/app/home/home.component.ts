@@ -1,4 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { Component , OnInit} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
@@ -24,12 +25,38 @@ socket.on('receive-message', (message: any, id: any) => {
 
 })
 
+socket.on('users', (list: any[]) => {
+
+  userListFunction(list)
+
+    
+});
+
+socket.on('disconnected', (socket: any) => {
+
+  console.log(`${socket} has disconnected`)
+
+  users = users.filter((user: any) => user.code != socket )
+
+  console.log(users)
+
+  userListFunction(users)
+
+
+
+
+})
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
+
+  userList: any = []
+
+  
 
   room: string = ""
 
@@ -51,6 +78,10 @@ export class HomeComponent implements OnInit{
 
     this.user.currentRoom.subscribe(roomid => { 
       this.room = roomid;
+    })
+
+    this.user.currentUsers.subscribe(list => {
+      users = list
     })
 
     if(userID !== ""){
@@ -105,12 +136,32 @@ export class HomeComponent implements OnInit{
     
   
   }
-
   
 
-  
+}
+
+function userListFunction(list: any[]){
+
+  let div = document.getElementById('user-list')
+
+  while(div?.firstChild){
+    div.removeChild(div.firstChild)
+  }
 
 
+  users = list
+
+  users.forEach((element: any) => {
+
+  const li = document.createElement('li')
+
+  li.textContent = element.id
+
+  document.getElementById('user-list')?.append(li)
+
+
+    
+  });
 }
 export default socket;
 

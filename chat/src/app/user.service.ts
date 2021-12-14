@@ -28,11 +28,20 @@ export class UserService {
     this.room.next(room)
   }
 
-  addUser(list: any){
+  addUser(list: any[]){
 
-    const newList = [list]
+    const users: any = []
 
-    this.userList.next(newList)
+    list.forEach((e: string) => {
+
+      users.push(e)
+
+    });
+
+    this.userList = users
+
+    console.log(this.userList)
+
 
   }
 }
