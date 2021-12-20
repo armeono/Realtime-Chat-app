@@ -1,14 +1,26 @@
-<div>
+<div class="text-white w-10/12 m-auto">
 
-    <div id="message-container"></div>
+    <div class="flex bg-gray-500" id="message-container">
+
+
+        <div class="flex flex-1 bg-blue-400 flex-col" #scroll2 style="overflow: scroll; height: xyz;" [scrollTop]="scroll2.scrollHeight" id="new-message"></div>
+
+
+        <div class="flex flex-1 bg-red-400 flex-col" #scrollMe style="overflow: scroll; height: xyz;" [scrollTop]="scrollMe.scrollHeight" id="my-message"></div>
+
+
+    </div>
+
   
     <form id="form">
   
       <div id="message">
   
-        <label for="message-input">Message</label>
-        <input type="text" id="message-input" #input>
-        <button type="button" (click)="displayMessage(input.value)" id="send-button">Send</button>
+        <label class="border-2 p-2 rounded-lg" for="message-input">Message</label>
+        <input class="text-gray-900" type="text" id="message-input" (keydown.enter)="displayMessage(input.value)" #input>
+        <button type="button" (click)="displayMessage(input.value)" (keyup.enter)="displayMessage(input.value)" id="send-button">Send</button>
+
+        
   
       </div>
   

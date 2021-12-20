@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
-import { Component , OnInit} from '@angular/core';
+import { AfterViewInit, Component , OnInit} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
@@ -12,18 +12,38 @@ let userID: string = '';
 
 let users: any = []
 
+let currentInput: string = ""
+
+let input = document.getElementById('message-input');
+
+input?.addEventListener('change', () => {
+  console.log('typing')
+})
+
 socket.on('receive-message', (message: any, id: any) => {
+
+  
 
   console.log(message)
 
   const div = document.createElement('div')
 
+  const div2 = document.createElement('div')
+
+  div.className = "flex border-2 p-2 m-3 rounded-lg border-gray-700 bg-gray-700"
+
+  div2.className = "flex p-2 m-3 w-auto rounded-lg text-transparent"
+
   div.textContent = id + ": " + message
 
-  document.getElementById("message-container")?.append(div)
-  
+  div2.textContent = message
+
+  document.getElementById("new-message")?.append(div)
+
+  document.getElementById("my-message")?.append(div2);
 
 })
+
 
 socket.on('users', (list: any[]) => {
 
@@ -54,6 +74,10 @@ socket.on('disconnected', (socket: any) => {
 })
 export class HomeComponent implements OnInit{
 
+  
+currentInput: any = ""
+ 
+
   userList: any = []
 
   
@@ -76,6 +100,8 @@ export class HomeComponent implements OnInit{
       
     })
 
+   
+
     this.user.currentRoom.subscribe(roomid => { 
       this.room = roomid;
     })
@@ -96,6 +122,8 @@ export class HomeComponent implements OnInit{
     
   }
 
+
+
   displayMessage(message: any) {
 
     if(message === ''){
@@ -105,16 +133,22 @@ export class HomeComponent implements OnInit{
     socket.emit("send-message", message, this.room);
 
     const div = document.createElement('div')
+    const div2 = document.createElement('div')
+
+    div.className = "flex border-2 p-2 m-3 w-auto rounded-lg border-gray-700 bg-gray-700 "
+
+    div2.className = "flex p-2 m-3 w-auto rounded-lg text-transparent "
+   
 
     div.textContent = message
 
-    div.style.textAlign = 'right'
+    div2.textContent = message
   
-    document.getElementById("message-container")?.append(div);
-
-    console.log(this.room);
-
     
+
+    document.getElementById("new-message")?.append(div2);
+
+    document.getElementById("my-message")?.append(div);
 
 
     (<HTMLInputElement>document.getElementById("message-input")).value = "";
@@ -126,11 +160,11 @@ export class HomeComponent implements OnInit{
 
   connected(id: string){
 
-    const div = document.createElement("div")
+    // const div = document.createElement("div")
   
-    div.textContent = `You connected with id: ${id}`
+    // div.textContent = `You connected with id: ${id}`
   
-    document.getElementById("message-container")?.appendChild(div);
+    // document.getElementById("my-message")?.appendChild(div);
   
     
     

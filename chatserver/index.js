@@ -112,6 +112,10 @@ io.on('connection', socket => {
 
     })
 
+    socket.on('typing', message => {
+        console.log(message)
+    })
+
 
 
 
