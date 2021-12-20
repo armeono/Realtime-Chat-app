@@ -14,11 +14,6 @@ let users: any = []
 
 let currentInput: string = ""
 
-let input = document.getElementById('message-input');
-
-input?.addEventListener('change', () => {
-  console.log('typing')
-})
 
 socket.on('receive-message', (message: any, id: any) => {
 
