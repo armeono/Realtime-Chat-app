@@ -17,6 +17,7 @@ let currentInput: string = ""
 
 socket.on('receive-message', (message: any, id: any) => {
 
+
   
 
   console.log(message)
@@ -25,7 +26,7 @@ socket.on('receive-message', (message: any, id: any) => {
 
   const div2 = document.createElement('div')
 
-  div.className = "flex border-2 p-2 m-3 rounded-lg border-gray-700 bg-gray-700"
+  div.className = "flex border-2 p-2 m-3 rounded-lg border-gray bg-gray"
 
   div2.className = "flex p-2 m-3 w-auto rounded-lg text-transparent"
 
@@ -68,7 +69,6 @@ socket.on('disconnected', (socket: any) => {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-
   
 currentInput: any = ""
  
@@ -130,9 +130,9 @@ currentInput: any = ""
     const div = document.createElement('div')
     const div2 = document.createElement('div')
 
-    div.className = "flex border-2 p-2 m-3 w-auto rounded-lg border-gray-700 bg-gray-700 "
+    div.className = "flex border-2 p-2 m-3 w-auto rounded-lg border-chat-bubble bg-chat-bubble "
 
-    div2.className = "flex p-2 m-3 w-auto rounded-lg text-transparent "
+    div2.className = "flex p-2 m-3 w-auto rounded-lg text-transparent"
    
 
     div.textContent = message

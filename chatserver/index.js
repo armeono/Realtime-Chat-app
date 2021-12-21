@@ -10,11 +10,14 @@ let userList = []
 
 io.on('connection', socket => {
 
+
+
     let currentID = "guest"
 
 
 
     socket.on('send-message', (message, room) => {
+
 
 
         if (room === '') {

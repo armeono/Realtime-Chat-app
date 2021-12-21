@@ -1,6 +1,14 @@
-<input className=""  type="text" placeholder="enter your id" #user>
-<input type="text" id="room-input" [(ngModel)]="room"  [ngModelOptions]="{standalone: true}" placeholder="room id" #roomid> 
+<div class="flex justify-center items-center h-screen">
 
-<a (click)="setUpChat(user.value, roomid.value)">Enter</a>
+    <div class="flex bg-server flex-col m-auto w-1/3 align-baseline gap-5 shadow-md p-4 rounded-lg">
 
+        <input class="rounded-md" type="text" placeholder="enter your id" #user>
+        <input class="rounded-md" type="text" id="room-input" [(ngModel)]="room" [ngModelOptions]="{standalone: true}" placeholder="room id"
+            #roomid>
+    
+        <a class="m-auto bg-chat-bubble rounded-lg h-8 w-20 text-center text-text hover:bg-text hover:text-chat-bubble" (click)="setUpChat(user.value, roomid.value)">Enter</a>
+    
+    </div>
+
+</div>
 
